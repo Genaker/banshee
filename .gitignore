@@ -1,0 +1,7 @@
+vendor
+access.log
+error.log
+composer.loc
+cache/*
+!cache/.gitkeep
+.idea
