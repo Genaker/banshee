@@ -2,11 +2,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$app = new Silex\Application();
-$app['debug'] = true;
+$app = require __DIR__.'/../src/app.php';
 
-$app->get('/hello/{name}', function ($name) use ($app) {
-    return 'Hello '.$app->escape($name);
-});
+require __DIR__.'/../config/dev.php';
 
 $app->run();
