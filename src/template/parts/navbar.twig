@@ -1,0 +1,158 @@
+<div class="app-header navbar">
+    <!-- navbar header -->
+    <div class="navbar-header bg-dark">
+        <button class="pull-right visible-xs dk" data-toggle="class:show" data-target=".navbar-collapse">
+            <i class="glyphicon glyphicon-cog"></i>
+        </button>
+        <button class="pull-right visible-xs" data-toggle="class:off-screen" data-target=".app-aside" ui-scroll="app">
+            <i class="glyphicon glyphicon-align-justify"></i>
+        </button>
+        <!-- brand -->
+        <a href="index.html" class="navbar-brand text-lt">
+
+            <img src="{{ path }}static/imgs/logo-dark.png" alt="." class="">
+        </a>
+        <!-- / brand -->
+    </div>
+    <!-- / navbar header -->
+
+    <!-- navbar collapse -->
+    <div id="topbarhide" class="collapse pos-rlt navbar-collapse box-shadow bg-white">
+        <!-- buttons -->
+        <div class="nav navbar-nav hidden-xs">
+            <a href="index.html#" class="btn no-shadow navbar-btn" data-toggle="class:app-aside-folded" data-target=".app">
+                <i class="fa fa-dedent fa-fw text"></i>
+                <i class="fa fa-indent fa-fw text-active"></i>
+            </a>
+
+        </div>
+        <!-- / buttons -->
+
+        <!-- link and dropdown -->
+        <ul class="nav navbar-nav hidden-sm">
+
+
+        </ul>
+        <!-- / link and dropdown -->
+
+        <!-- search form -->
+        <form class="navbar-form navbar-form-sm navbar-left shift"   onsubmit='return validateForm();'  action='http://vimosound.com/search' id='search-form' method='get' target='_top' style="width:65%;">
+            <div class="form-group" style="width:100%;">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" ng-model="selected" name='q' typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-dark no-border rounded padder" placeholder="Search Youtube Videos/Link..." id="search-text" >
+
+              <span class="input-group-btn">
+                <button type="submit" id='search-button' class="btn btn-sm bg-dark rounded"><i class="fa fa-search"></i></button>
+              </span>
+                </div>
+            </div>
+        </form>
+
+
+
+        <!-- / search form -->
+
+        <!-- nabar right -->
+        <ul class="nav navbar-nav navbar-right">
+
+
+            <li class="dropdown">
+
+                <!-- dropdown -->
+                <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+                    g+ Login
+                </button>
+                <button  class="btn btn-danger btn-lg" onclick="chrome.webstore.install()" id="install-button">Add Chrome Extension</button>
+                <script>
+                    if (chrome.app.isInstalled) {
+                        document.getElementById('install-button').style.display = 'none';
+                    }
+                    var didScroll;
+                    var lastScrollTop = 0;
+                    var scrollAmount = 10;          // Value of scroll amount
+                    var navbarHeight = $('#topbarhide').outerHeight();
+
+                    $(window).scroll(function(event){
+                        didScroll = true;
+
+                    });
+
+                    setInterval(function() {
+                        if (didScroll) {
+                            hasScrolled();
+                            didScroll = false;
+                        }
+                    }, 250);
+
+                    function hasScrolled() {
+                        var sup = $(this).scrollTop();
+
+                        if (sup > lastScrollTop && sup > navbarHeight){
+                            // On Scroll Down
+                            $('#topbarhide').css({top: -$(this).outerHeight()});
+                            $('#share-fb').slideDown();
+
+                        } else {
+                            // On Scroll Up
+                            if(sup + $(window).height() < $(document).height()) {
+                                $('#topbarhide').css({top: 0});
+                                $('#share-fb').slideUp();
+                            }
+                        }
+
+                        lastScrollTop = sup;
+                    }
+                    function fbShare(url, winWidth, winHeight) {
+                        ga('send', {
+                            hitType: 'event',
+                            eventCategory: 'Videos',
+                            eventAction: 'share',
+                            eventLabel: 'Social'
+                        });
+                        var winTop = (screen.height / 2) - (winHeight / 2);
+                        var winLeft = (screen.width / 2) - (winWidth / 2);
+                        window.open('https://www.facebook.com/sharer/sharer.php?u='+url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+                    }
+                </script>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Google Plus Sign</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <p>
+                                    By accessing and using this Site, you agree to be bound by all Pakistan's applicable laws and regulations.
+                                    Any user promoting video that contains <strong class="text-danger">Religious Hatred</strong> contents will be banned and reported to PTA.
+                                </p>
+
+
+
+
+
+
+
+                                <a href="http://vimosound.com/auth/login.php" class="btn btn-danger"><i class="fa fa-google-plus"></i> Sign in with Google</a>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / dropdown -->
+            </li>
+
+
+
+        </ul>
+        <!-- / navbar right -->
+
+    </div>
+    <!-- / navbar collapse -->
+</div>
